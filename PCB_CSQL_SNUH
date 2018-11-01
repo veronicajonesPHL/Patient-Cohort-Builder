@@ -1,0 +1,42 @@
+SELECT "patient"."patient_id" AS "patient_id",
+  CAST("patient"."source_name" AS TEXT) AS "source_name",
+  CAST("patient"."mrn" AS TEXT) AS "mrn",
+  CAST("patient"."dob" AS TEXT) AS "dob", 
+  "patient"."isdeceased" AS "isdeceased",
+  CAST("patient"."ethnicity" AS TEXT) AS "ethnicity",
+  CAST("patient"."gender" AS TEXT) AS "gender",
+  CAST("patient"."race" AS TEXT) AS "race",
+  CAST("patient"."sex" AS TEXT) AS "sex",
+  CAST("mdxreport"."mdx_report_id" AS TEXT) AS "mdx_report_id",
+  CAST("mdxreport"."labname" AS TEXT) AS "labname",
+  CAST("mdxreport"."testname" AS TEXT) AS "testname",
+  CAST("biomarker_observation"."biomarker_observation_id" AS TEXT) AS "biomarker_observation_id",
+  CAST("biomarker_observation"."biomarker_observation_type" AS TEXT) AS "biomarker_observation_type",
+  "biomarker_observation"."iswildtypebiomarker" AS "iswildtypebiomarker",
+  CAST("biomarker_observation"."biomarkername" AS TEXT) AS "biomarkername",
+  CAST("gene_identity"."gene_identity_id" AS TEXT) AS "gene_identity_id",
+  "gene_identity"."biomarker_observation_id" AS "biomarker_observation_id (gene_identity)",
+  "gene_identity"."genesymbol" AS "genesymbol",
+  CAST("person_name"."humannamelast" AS TEXT) AS "humannamelast",
+  CAST("pathologyreport"."clinicalstagegroup" AS TEXT) AS "clinicalstagegroup (pathologyreport)",
+  CAST("pathologyreport"."pathologicstagegroup" AS TEXT) AS "pathologicstagegroup (pathologyreport)",
+  CAST("pathologyreport"."histology" AS TEXT) AS "histology (pathologyreport)",
+  CAST("pathologyreport"."primarysite" AS TEXT) AS "primarysite (pathologyreport)",
+  CAST("tumorassessment"."histology" AS TEXT) AS "histology (tumorassessment)",
+  CAST("tumorassessment"."primarysite" AS TEXT) AS "primarysite (tumorassessment)",
+  CAST("tumorstaging"."clinicalstagegroup" AS TEXT) AS "clinicalstagegroup (tumorstaging)",
+  CAST("tumorstaging"."pathologicstagegroup" AS TEXT) AS "pathologicstagegroup (tumorstaging)",
+  CAST("tumorstaging"."histology" AS TEXT) AS "histology (tumorstaging)",
+  CAST("tumorstaging"."primarysite" AS TEXT) AS "primarysite (tumorstaging)",
+  "encounter"."encounter_id" AS "encounter_id (encounter)",
+  CAST("encounter"."encounterfacility" AS TEXT) AS "Encounter Facility"
+FROM "jeeves"."patient"
+  INNER JOIN "jeeves"."mdxreport" "mdxreport" ON (("patient"."patient_id" = "mdxreport"."patient_id") AND ("patient"."source_name" = "mdxreport"."source_name"))  
+  LEFT JOIN "jeeves"."biomarker_observation" "biomarker_observation" ON (("mdxreport"."mdx_report_id" = "biomarker_observation"."mdx_report_id") AND ("patient"."patient_id" = "biomarker_observation"."patient_id"))
+  LEFT JOIN "jeeves"."gene_identity" "gene_identity" ON ("biomarker_observation"."biomarker_observation_id" = "gene_identity"."biomarker_observation_id")
+  LEFT JOIN "jeeves"."patient__person_name" "patient__person_name" ON ("patient"."patient_id" = "patient__person_name"."patient_id")
+  LEFT JOIN "jeeves"."person_name" "person_name" ON ("patient__person_name"."person_name_id" = "person_name"."person_name_id")
+  LEFT JOIN "jeeves"."pathologyreport" "pathologyreport" ON ("patient"."patient_id" = "pathologyreport"."patient_id")
+  LEFT JOIN "jeeves"."tumorassessment" "tumorassessment" ON ("patient"."patient_id" = "tumorassessment"."patient_id")
+  LEFT JOIN "jeeves"."tumorstaging" "tumorstaging" ON ("patient"."patient_id" = "tumorstaging"."patient_id")
+  LEFT JOIN "jeeves"."encounter" "encounter" ON ("patient"."patient_id" = "encounter"."patient_id")
