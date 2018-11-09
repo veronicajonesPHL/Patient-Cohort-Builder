@@ -1,0 +1,16 @@
+#1
+LOWER(IF NOT(ISNULL([humannamemiddle]))
+THEN [humannamelast] + " , " + [humannamefirst]+" "+[humannamemiddle]
+ELSE [humannamelast] + " , " + [humannamefirst]
+END)
+
+#2
+(UPPER(MID(SPLIT([Patient Full Name - Calc]," ",1), 1, 1)) + LOWER(MID(SPLIT([Patient Full Name - Calc]," ",1), 2, Len(SPLIT([Patient Full Name - Calc]," ",1)) - 1)))
+
++ IFNULL(" " + (UPPER(MID(SPLIT([Patient Full Name - Calc]," ",2), 1, 1)) + LOWER(MID(SPLIT([Patient Full Name - Calc]," ",2), 2, Len(SPLIT([Patient Full Name - Calc]," ",2)) - 1))) ,"")
+
++ IFNULL(" " + (UPPER(MID(SPLIT([Patient Full Name - Calc]," ",3), 1, 1)) + LOWER(MID(SPLIT([Patient Full Name - Calc]," ",3), 2, Len(SPLIT([Patient Full Name - Calc]," ",3)) - 1))) ,"")
+
++ IFNULL(" " + (UPPER(MID(SPLIT([Patient Full Name - Calc]," ",4), 1, 1)) + LOWER(MID(SPLIT([Patient Full Name - Calc]," ",4), 2, Len(SPLIT([Patient Full Name - Calc]," ",4)) - 1))) ,"")
+
+
