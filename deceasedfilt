@@ -1,0 +1,3 @@
+IF [isdeceased] = TRUE THEN "Deceased"
+ELSE "Alive" 
+END
