@@ -1,0 +1,9 @@
+IF [DOB]>DATEADD('year',-DATEDIFF('year',[DOB],TODAY()),TODAY()) THEN
+
+    DATEDIFF('year',[DOB],TODAY())-1
+
+ELSE
+
+    DATEDIFF('year',[DOB],TODAY())
+
+END
