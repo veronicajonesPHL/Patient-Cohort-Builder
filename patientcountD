@@ -1,0 +1,1 @@
+TOTAL(COUNTD([patient_id]))
