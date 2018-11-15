@@ -1,0 +1,5 @@
+IF ISNULL([deceaseddts]) THEN "None"
+
+ELSE STR(MONTH([deceaseddts])) + "/" +STR(DAY([deceaseddts])) + "/" + STR(YEAR([deceaseddts])) 
+
+END
