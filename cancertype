@@ -1,0 +1,4 @@
+IF ISNULL([primarysite (pathologyreport)]) THEN [primarysite (tumorassessment)]
+ELSEIF ISNULL([primarysite (pathologyreport)]) THEN([primarysite (tumorstaging)])
+ELSE [primarysite (pathologyreport)]
+END
