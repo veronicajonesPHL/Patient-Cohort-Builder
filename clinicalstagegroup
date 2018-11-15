@@ -1,0 +1,3 @@
+IF ISNULL([clinicalstagegroup (pathologyreport)]) THEN [clinicalstagegroup (tumorstaging)]
+ELSE [clinicalstagegroup (pathologyreport)]
+END
