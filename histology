@@ -1,0 +1,4 @@
+IF ISNULL([histology (pathologyreport)]) THEN [histology (tumorassessment)]
+ELSEIF ISNULL([histology (pathologyreport)]) THEN [histology (tumorstaging)]
+ELSE [histology (pathologyreport)]
+END
